@@ -1,9 +1,9 @@
 <template>
     <div class="navbar">
-        <nav class="nav-extended blue-grey darken-1">
+        <nav class="nav-extended white">
             <div class="nav-content">
                 <router-link :to="{ name: 'Index'}">
-                    <span class="nav-title center">TODO</span>
+                    <span class="nav-title center grey-text">TODO</span>
                 </router-link>
                     
                 

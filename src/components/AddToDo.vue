@@ -1,6 +1,9 @@
 <template>
+
+    <div class="navigaton">
+        <Navbar />
     <div class = "add-list container">
-        <h2 class="center-align">Make a new TODO</h2>
+        <h2 class="center-align blue-grey-text">Make a new TODO</h2>
         <form @submit.prevent="addToDo" autocomplete="off">
             <div class="field date">
                 <label for="date">Date:</label>
@@ -22,20 +25,26 @@
             
              <div class = "field left-align">
                  <!--Not happy with warning icon position check css-->
-                 <p v-if="feedback" class = "red-text"><i class= "warning small material-icons">warning</i>{{ feedback }}</p>
+                 <p v-if="feedback" class = "red-text"><i class= "warning small material-icons">warning</i> {{ feedback }} </p>
                 
-                <button class="btn">Submit list</button>
+                <button class="btn blue-grey">Submit list</button>
             </div>
         </form>
 
     </div>
+    </div>
+
 </template>
 
 <script>
 import db from '@/firebase/init'
 import slugify from 'slugify'
+import Navbar from '@/components/Navbar'
 export default {
     name: 'AddToDo',
+    components:{
+        Navbar
+    },
     data(){
         return{
             date: null,
@@ -91,6 +100,8 @@ export default {
 </script>
 
 <style>
+
+    
     label{
         font-size: 1em;
         

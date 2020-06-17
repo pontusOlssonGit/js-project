@@ -1,9 +1,11 @@
 <template>
-  
-   <div class="row">
+  <div id="wrapper">
+   <div class="row'">
+      <Navbar /> 
+      <div class="row">
     <div class="col s12 m6 l4" v-for="toDo in toDos" :key="toDo.id">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
+      <div class="card white darken-1">
+        <div class="card-content">
           <i class="material-icons delete" @click="deleteList(toDo.id)">delete</i>
           
           <span class="card-title">Date: {{toDo.date}}</span>
@@ -22,16 +24,21 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
-    
-    
   
+    
+</div>
 </template>
 
 <script>
 import db from '@/firebase/init'
+import Navbar from '@/components/Navbar'
 export default {
   name: 'Index',
+  components: {
+    Navbar
+  },
   data () {
     return {
       toDos: []
@@ -67,6 +74,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#wrapper{
+    background-image: url("https://images.unsplash.com/photo-1591965690751-664e6c285ba6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80");
+    min-height: 100vh;
+    background-size: cover;
+}
+
 .row{
   margin-top: 2rem;
 }
@@ -88,6 +101,7 @@ export default {
 .a-toggle{
   cursor: pointer;
 }
+
 
 
 </style>

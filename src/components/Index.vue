@@ -24,6 +24,7 @@
         </div>
       </div>
     </div>
+    
     </div>
   </div>
   
@@ -34,6 +35,7 @@
 <script>
 import db from '@/firebase/init'
 import Navbar from '@/components/Navbar'
+import firebase from 'firebase'
 export default {
   name: 'Index',
   components: {
@@ -41,7 +43,8 @@ export default {
   },
   data () {
     return {
-      toDos: []
+      toDos: [],
+      user: null
       
     }
   },
@@ -68,6 +71,13 @@ export default {
             
       })
     })
+  },
+  mounted(){
+
+    console.log(firebase.auth().currentUser)
+    
+    this.user = firebase.auth().currentUser.username
+    
   }
 }
 </script>
@@ -83,11 +93,12 @@ export default {
 .row{
   margin-top: 2rem;
 }
+
 .chip{
   display:grid;
   text-align: center;
-  margin-right: 10vw;
-  margin-left: 10vw;
+  margin-right: 3vw;
+  margin-left: 3vw;
   
   
 }

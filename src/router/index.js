@@ -4,11 +4,17 @@ import Index from '@/components/Index'
 import AddToDo from '@/components/AddToDo'
 import EditToDo from '@/components/EditToDo'
 import Signup from '@/components/auth/Signup'
+import Login from '@/components/auth/Login'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
     {
       path: '/',
       name: 'Signup',

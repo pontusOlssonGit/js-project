@@ -1,5 +1,5 @@
 <template>
-
+    <div id="wrapper">
     <div class="navigaton">
         <Navbar />
     <div class = "add-list container">
@@ -33,7 +33,7 @@
 
     </div>
     </div>
-
+</div>
 </template>
 
 <script>
@@ -100,6 +100,7 @@ export default {
 </script>
 
 <style>
+    
 
     
     label{

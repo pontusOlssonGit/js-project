@@ -1,35 +1,35 @@
 <template>
   <div id="wrapper">
-   <div class="row'">
-      <Navbar /> 
+    <div class="row'">
+      <Navbar />
       <div class="row">
-    <div class="col s12 m6 l4" v-for="toDo in toDos" :key="toDo.id">
-      <div class="card white darken-1">
-        <div class="card-content">
-          <i class="material-icons delete" @click="deleteList(toDo.id)">delete</i>
-          
-          <span class="card-title">Date: {{toDo.date}}</span>
-          <ul class = "toDoList">
-          <li v-for="(toD, index) in toDo.list" :key="index">
-            <span class="chip">{{toD}}</span>
-          </li>
-        </ul>
+        <div class="col s12 m6 l4" v-for="toDo in toDos" :key="toDo.id">
+          <div class="card white darken-1">
+            <div class="card-content">
+              <i class="material-icons delete" @click="deleteList(toDo.id)">delete</i>
+
+              <span class="card-title">Date: {{toDo.date}}</span>
+              <ul class="toDoList">
+                <li v-for="(toD, index) in toDo.list" :key="index">
+                  <span class="chip">{{toD}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="card-action">
+              <router-link :to="{ name: 'EditToDo', params: {todo_slug: toDo.slug}}">
+                <a class="a-toggle right">Edit</a>
+
+              </router-link>
+              <a class="createdBy left"> {{toDo.createdBy}}</a>
+            </div>
+          </div>
         </div>
-        <div class="card-action">
-          <router-link :to="{ name: 'EditToDo', params: {todo_slug: toDo.slug}}">
-          <a class="a-toggle">Edit</a>
-           </router-link>
-          
-          
-        </div>
+
       </div>
     </div>
-    
-    </div>
+
+
   </div>
-  
-    
-</div>
 </template>
 
 <script>
@@ -41,43 +41,49 @@ export default {
   components: {
     Navbar
   },
-  data () {
+  data() {
     return {
       toDos: [],
-      user: null
-      
-    }
-  },
-  methods:{
-    deleteList(id){
-      db.collection('lists').doc(id).delete()
-      .then(() =>{
-        this.toDos = this.toDos.filter(toDo =>{
-        return toDo.id != id
-      })
-      })
-      
-    }
-    
-  },
-  created(){
-    db.collection('lists').get()
-    .then(snapshot =>{
-      snapshot.forEach(doc => {
-        let list = doc.data()
-        list.id = doc.id
-        this.toDos.push(list)
-        console.log(doc.data())
-            
-      })
-    })
-  },
-  mounted(){
+      user: null,
+      username: null
 
-    console.log(firebase.auth().currentUser)
-    
-    this.user = firebase.auth().currentUser.username
-    
+    }
+  },
+  methods: {
+    deleteList(id) {
+      db.collection('lists').doc(id).delete()
+        .then(() => {
+          this.toDos = this.toDos.filter(toDo => {
+            return toDo.id != id
+          })
+        })
+
+    }
+
+  },
+  created() {
+
+    let user = firebase.auth().currentUser
+
+
+    db.collection('users').where('user_id', '==', user.uid).get()
+      .then(snapshot => {
+        snapshot.forEach((doc) => {
+          this.username = doc.data().username
+
+        })
+
+        db.collection('lists').where('createdBy', '==', this.username).get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              let list = doc.data()
+              list.id = doc.id
+              this.toDos.push(list)
+            })
+          })
+      })
+  },
+  mounted() {
   }
 }
 </script>
@@ -112,6 +118,12 @@ export default {
 .a-toggle{
   cursor: pointer;
 }
+
+.createdBy{
+  cursor:default;
+}
+
+
 
 
 

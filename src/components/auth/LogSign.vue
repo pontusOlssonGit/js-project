@@ -27,10 +27,7 @@
 
 <script>
   export default {
-      name: 'LogSign',
-      data(){
-          return
-      }
+      
 
   }
 </script>
